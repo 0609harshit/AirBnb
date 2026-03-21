@@ -1,0 +1,19 @@
+<% layout("templates/boilerplate") %>
+    <div class="row">
+    <%for(let list of lists){%>     
+            <div class="col-3">
+        <a href="/lists/<%=list._id%>">
+            <div class="card">
+  <img src="<%=list.image%>" class="card-img-top" alt="..." style="height: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%=list.title%></h5>
+    <p class="card-price">₹<%= list.price.toLocaleString("en-IN") %> / night
+</p>
+  </div>
+</div>
+        </a>
+        </div>
+        
+    <%}%>
+</div>
+
