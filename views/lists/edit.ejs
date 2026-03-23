@@ -1,0 +1,40 @@
+<%- layout("./templates/boilerplate") %>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="mb-4">Edit Listing</h1>
+            <form action="/lists/<%= list._id %>/edit?_method=PATCH" method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="list[title]" value="<%= list.title %>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="list[description]" rows="3" required><%= list.description %></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image URL</label>
+                    <input type="url" class="form-control" id="image" name="list[image]" value="<%= list.image %>" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="price" class="form-label">Price per night</label>
+                        <input type="number" class="form-control" id="price" name="list[price]" value="<%= list.price %>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="list[location]" value="<%= list.location %>" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" id="country" name="list[country]" value="<%= list.country %>" required>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success">Update Listing</button>
+                    <a href="/lists/<%= list._id %>" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

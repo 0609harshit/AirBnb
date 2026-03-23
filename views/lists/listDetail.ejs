@@ -1,9 +1,23 @@
 <%- layout("./templates/boilerplate") %>
-    <ul>
-        <li><%=list.title%></li>
-        <li><%=list.description%></li>
-        <li><%=list.price%></li>
-        <li><%=list.location%></li>
-        <li><%=list.country%></li>
-    </ul>
-</body>
+<div class="detail-container">
+    <div class="card detail-card">
+  <img src="<%=list.image%>" class="card-img-top" alt="<%=list.title%>">
+  <div class="card-body">
+    <h5 class="card-title"><%=list.title%></h5>
+    <p class="card-text"><%=list.description%></p>
+    <p class="card-price">₹<%= list.price.toLocaleString("en-IN") %> / night</p>
+    <p class="card-location"><i class="fas fa-map-marker-alt"></i> <%=list.location%>, <%=list.country%></p>
+    <p class="card-country"><%=list.country%></p>
+    <div class="card-actions mt-3">
+     <a href="/lists/<%=list._id %>/edit">   <button class="btn btn-warning">
+          <i class="fas fa-edit"></i> Edit
+        </button>
+    </a>
+      <form action="/lists/delete/<%= list._id %>?_method=DELETE" method="POST" class="d-inline">
+        <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this listing?')">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

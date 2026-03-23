@@ -9,7 +9,9 @@
     top: 0;
     z-index: 1;
 }
-
+.navbar-brand{
+    color: red !important;
+}
 .row{
     padding-left: 50px;
     padding-right: 20px;
@@ -17,11 +19,12 @@
 }
 .card{
     width: 20rem;
-    height: 22rem;
     margin-bottom: 5px;
     border: none;
 }
-
+.card:hover{
+    border: 1px solid black;
+}
 .col-3 a {
     text-decoration: none !important;
     color: inherit !important;
@@ -31,4 +34,107 @@
     border-radius: 0.5rem;
     width: 100% !important;
     height: 15rem !important;
+}
+
+/* List Detail Page Enhancements */
+.detail-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.detail-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.detail-card .card-img-top {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.detail-card .card-body {
+    padding: 2rem;
+}
+
+.detail-card .card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.detail-card .card-text {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.detail-card .card-price {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #e74c3c;
+    margin-bottom: 1rem;
+}
+
+.detail-card .card-location {
+    font-size: 1rem;
+    color: #7f8c8d;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.detail-card .card-country {
+    font-size: 0.9rem;
+    color: #95a5a6;
+    font-style: italic;
+}
+    
+.detail-card .card-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.detail-card .card-actions .btn {
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.detail-card .card-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .detail-container {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+    }
+
+    .detail-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .detail-card .card-title {
+        font-size: 1.6rem;
+    }
+
+    .detail-card .card-price {
+        font-size: 1.5rem;
+    }
 }
