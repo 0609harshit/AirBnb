@@ -51,6 +51,13 @@ app.delete("/lists/delete/:id", async(req, res) => {
     await List.findByIdAndDelete(id);
     res.redirect("/lists");
 })
+app.get("/lists/new", (req, res) => {
+    res.render("lists/create");
+})
+app.post("/lists/create", async(req, res) => {
+    await List.create(req.body.list);
+    res.redirect("/lists");
+})
 app.get("/lists/:id", async (req, res) => {
     let {id} = req.params;
     let list = await List.findById(id);

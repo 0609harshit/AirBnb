@@ -1,0 +1,38 @@
+<%- layout("./templates/boilerplate") %>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="mb-4">Create Listing</h1>
+            <form action="/lists/create" method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="list[title]" placeholder="Enter title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="list[description]" rows="3" placeholder="Enter description" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image URL</label>
+                    <input type="url" class="form-control" id="image" name="list[image]" placeholder="Enter image link">
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="price" class="form-label">Price per night</label>
+                        <input type="number" class="form-control" id="price" name="list[price]" placeholder="Enter price" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="list[location]" placeholder="Enter location" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <input type="text" class="form-control" id="country" name="list[country]" placeholder="Enter country" required>
+                    </div>
+                    
+                <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
