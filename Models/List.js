@@ -16,7 +16,9 @@ const ListSchema = new Schema({
         required : true
     },
     price : {
-        type : Number
+        type : Number,
+        default : 1,
+        min : 1,
     },
     location : {
         type : String
