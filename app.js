@@ -2,6 +2,8 @@ const express = require("express");
 const app=express();
 const mongoose = require("mongoose");
 const List = require("./Models/List.js");
+const User = require("./Models/user.js");
+const Review = require("./Models/review.js");
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
@@ -86,9 +88,28 @@ app.post("/lists/create",validateList, wrapAsync(async(req, res, next) => {
 //get specific list details
 app.get("/lists/:id", wrapAsync(async (req, res, next) => {
         let {id} = req.params;
-        let list = await List.findById(id);
+        let list = await List.findById(id).populate("review");
         if (!list) throw new ExpressError(404, "List not found");
         res.render("lists/listDetail.ejs", {list});
+}))
+
+//review save and show route
+app.post("/lists/:id/review", wrapAsync(async(req, res, next) => {
+    const list = await List.findById(req.params.id);
+    const review = new Review(req.body.review);
+    list.review.push(review);
+    await review.save();
+    await list.save();
+
+    res.redirect(`/lists/${list._id}`);
+}))
+
+//Delete review
+app.delete("/lists/:id/review/:reviewId/delete", wrapAsync(async(req, res, next) => {
+    let {id, reviewId} = req.params;
+    await List.findByIdAndUpdate(id, {$pull :{review : reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/lists/${id}`);
 }))
 
 // Page not found middleware
@@ -98,7 +119,7 @@ app.use((req, res, next)=>{
 //global error handler
 app.use((err, req, res, next) => {
     let {status=500, message="Something went wrong"}=err;
-    res.status(status).send(message);
+    res.render("Errors/error.ejs", {status, message});
 })
 app.listen("8080", () => {
     console.log("App is listening...");

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema=mongoose.Schema;
+const Review = require("./review.js");
 
 const ListSchema = new Schema({
     title : {
@@ -26,6 +27,19 @@ const ListSchema = new Schema({
     country : {
         type : String,
         required : true
+    },
+    review : [
+        {
+            type : Schema.Types.ObjectId,
+            ref : "Review",
+        }
+    ]
+})
+
+//Deleting all reviews related to list on deleting a list
+ListSchema.post("findOneAndDelete", async(list) => {
+    if(list){
+        Review.deleteMany({_id : {$in : list.review}});
     }
 })
 

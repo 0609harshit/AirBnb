@@ -1,6 +1,6 @@
 <%- layout("./templates/boilerplate") %>
 <div class="detail-container">
-    <div class="card detail-card">
+    <div class="card detail-card mx-auto">
   <img src="<%=list.image%>" class="card-img-top" alt="<%=list.title%>">
   <div class="card-body">
     <h5 class="card-title"><%=list.title%></h5>
@@ -20,4 +20,43 @@
       </form>
     </div>
   </div>
+</div>
+<br>
+<hr>
+<br>
+<div class="mx-auto">
+  <h4>Leave a Review</h4>
+  <form action="/lists/<%=list._id%>/review" method="post">
+    <label for="user">Your Name</label>
+      <input type="text" name="review[user]" id="user" class="form-control" placeholder="Anonymous">
+      <br>
+    <label for="rating">Rating</label>
+      <input type="range" name="review[rating]" id="rating" min="1" max="5" class="form-control"> 
+      <br>
+    <label for="comment">Comment</label>
+      <textarea name="review[comment]" id="comment" placeholder="How do you like this place..." cols="30" rows="5" class="form-control"></textarea>
+      <br>
+    <button class="btn btn-outline-dark" type="submit ">Submit</button>
+  </form>
+</div>
+<br>
+<hr>
+<br>
+<div class="row">
+<% for(let review of list.review){%>
+  <div class="col-4 card">
+  <div class="card-body">
+    <p class="card-reviewUser"><b>User : </b><%=review.user%></p>
+    <p class="card-reviewComment"><b>Comment : </b><%= review.comment %></p>
+    <p class="card-reviewRating"><%= review.rating %> star</p>
+    </a>
+      <form action="/lists/<%= list._id %>/review/<%= review._id %>/delete?_method=DELETE" method="POST" class="d-inline">
+        <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this listing?')">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </form>
+</div>
+</div>
+<%}%>
+</div>
 </div>

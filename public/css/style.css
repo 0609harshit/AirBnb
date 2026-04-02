@@ -2,6 +2,14 @@
     padding: 0;
     margin: 0;
 }
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+}
 .navbar{
     background-color: whitesmoke !important;
     display: flex !important;
@@ -18,9 +26,13 @@
     margin-top: 2rem !important;
 }
 .card{
-    width: 20rem;
-    margin-bottom: 5px;
+    margin-bottom: 1rem;
     border: none;
+}
+.col-3 > .card,
+.review-card {
+    width: 100%;
+    max-width: 100%;
 }
 .card:hover{
     border: 1px solid black;
@@ -44,6 +56,9 @@
 }
 
 .detail-card {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
     border: none;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -57,7 +72,7 @@
 }
 
 .detail-card .card-img-top {
-    height: 300px;
+    height: 500px;
     object-fit: cover;
     border-radius: 0;
 }

@@ -1,5 +1,5 @@
 const joi = require("joi");
-module.exports = joi.object({
+module.exports.listJoi = joi.object({
     list : joi.object({
         title : joi.string().required(),
         description : joi.string().required(),
