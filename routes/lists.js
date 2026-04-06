@@ -27,13 +27,14 @@ router.get("/", wrapAsync(async (req, res, next) => {
 router.get("/:id/edit", wrapAsync(async(req, res, next) => {
         let {id} = req.params;
         let list = await List.findById(id);
-        if(!list) return next(new ExpressError(404, "List Not found"))
+        if(!list) return next(new ExpressError(404, "List Not found"))  
         res.render("lists/edit", {list});
     
 }))
 router.patch("/:id/edit",validateList, wrapAsync(async(req, res, next) => {
         let {id} = req.params;                    
         await List.findByIdAndUpdate(id, req.body.list, {new : true});
+        req.flash("success", "List updated successfully!");
         res.redirect(`/lists/${id}`);
     
 }))
@@ -42,6 +43,7 @@ router.patch("/:id/edit",validateList, wrapAsync(async(req, res, next) => {
 router.delete("/delete/:id", wrapAsync(async(req, res, next) => {
         let {id} = req.params;
         await List.findByIdAndDelete(id);
+        req.flash("success", "List deleted successfully!");
         res.redirect("/lists");
 }))
 
@@ -52,6 +54,7 @@ router.get("/new", (req, res) => {
 router.post("/create",validateList, wrapAsync(async(req, res, next) => {
     let list = req.body;
         await List.create(req.body.list);
+        req.flash("success", "List created successfully!");
         res.redirect("/lists");
 }))
 

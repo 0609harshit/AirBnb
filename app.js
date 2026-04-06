@@ -8,6 +8,8 @@ const ExpressError = require("./utils/ExpressError.js");
 const lists = require("./routes/lists.js");
 const reviews = require("./routes/reviews.js");
 const session = require("express-session");
+const flash = require("connect-flash");
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -24,6 +26,7 @@ const sessionOptions = {
 }
 
 app.use(session(sessionOptions));
+app.use(flash());
 
 async function estbConn(){
     try{
@@ -38,8 +41,11 @@ estbConn().then(()=>{console.log("Connection established");})
 .catch((err)=>{
     console.log("Error found!", err);
 })
-
-
+app.use((req, res, next) => {
+    res.locals.success=req.flash("success");
+    res.locals.error=req.flash("error");
+    next();
+})
 
 app.use("/lists", lists);
 app.use("/lists/:id/review", reviews);
