@@ -9,3 +9,10 @@ module.exports.listJoi = joi.object({
         country : joi.string().required(),
     }).required()
 })
+
+module.exports.reviewJoi=joi.object({
+    review : joi.object({
+        rating : joi.number().required(),
+        comment : joi.string().required(),
+    })
+})

@@ -3,8 +3,8 @@ const router = express.Router();
 const List = require("../Models/List.js");
 const ExpressError = require("../utils/ExpressError.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const listJoi = require("../schema.js");
-
+const {listJoi} = require("../schema.js");
+ 
 //joi validate fxn
 const validateList =(req, res, next) => {
     const {error} = listJoi.validate(req.body);
