@@ -13,10 +13,13 @@
 
     estbConn().then(()=>{
         const fxn = async ()=>{
-            await List.deleteMany();
-            await List.insertMany(data);
+            await List.deleteMany({});
+            let newData = data.map((obj) => ({...obj, owner : "69da835eb6f032e91cca787f",}))
+            await List.insertMany(newData);
+            await mongoose.connection.close();
         }
         fxn();
+        
     })
     .catch((err)=>{
         console.log("Error found!", err);

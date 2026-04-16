@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != "production"){
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app=express();
 const mongoose = require("mongoose");
@@ -7,9 +11,12 @@ const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError.js");
 const lists = require("./routes/lists.js");
 const reviews = require("./routes/reviews.js");
+const users = require("./routes/users.js");
 const session = require("express-session");
 const flash = require("connect-flash");
-
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const User = require("./Models/user.js");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -28,6 +35,12 @@ const sessionOptions = {
 app.use(session(sessionOptions));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 async function estbConn(){
     try{
         await mongoose.connect("mongodb://127.0.0.1:27017/airbnb")
@@ -44,11 +57,15 @@ estbConn().then(()=>{console.log("Connection established");})
 app.use((req, res, next) => {
     res.locals.success=req.flash("success");
     res.locals.error=req.flash("error");
+    res.locals.currUser=req.user;
     next();
 })
 
+
+
 app.use("/lists", lists);
 app.use("/lists/:id/review", reviews);
+app.use("/", users);
 
 // Page not found middleware
 app.use((req, res, next)=>{

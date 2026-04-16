@@ -1,14 +1,16 @@
 <%- layout("./templates/boilerplate") %>
 <div class="detail-container">
     <div class="card detail-card mx-auto">
-  <img src="<%=list.image%>" class="card-img-top" alt="<%=list.title%>">
+  <img src="<%=list.image.url%>" class="card-img-top" alt="<%=list.title%>">
   <div class="card-body">
     <h5 class="card-title"><%=list.title%></h5>
+    <p class="card-text"><%=list.owner.username%></p>
     <p class="card-text"><%=list.description%></p>
     <p class="card-price">₹<%= list.price.toLocaleString("en-IN") %> / night</p>
     <p class="card-location"><i class="fas fa-map-marker-alt"></i> <%=list.location%>, <%=list.country%></p>
     <p class="card-country"><%=list.country%></p>
-    <div class="card-actions mt-3">
+    <% if(currUser&&currUser.username===list.owner.username){ %>
+      <div class="card-actions mt-3">
      <a href="/lists/<%=list._id %>/edit">   <button class="btn btn-warning">
           <i class="fas fa-edit"></i> Edit
         </button>
@@ -18,7 +20,9 @@
           <i class="fas fa-trash"></i> Delete
         </button>
       </form>
-    </div>
+      </div>
+    <% } %>
+    
   </div>
 </div>
 <br>

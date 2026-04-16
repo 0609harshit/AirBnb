@@ -4,7 +4,7 @@
             <div class="col-3">
         <a href="/lists/<%=list._id%>">
             <div class="card">
-  <img src="<%=list.image%>" class="card-img-top" alt="..." style="height: 18rem;     height: 22rem;">
+  <img src="<%=list.image.url%>" class="card-img-top" alt="..." style="height: 18rem;     height: 22rem;">
   <div class="card-body">
     <h5 class="card-title"><%=list.title%></h5>
     <p class="card-price">₹<%= list.price.toLocaleString("en-IN") %> / night

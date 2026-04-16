@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema=mongoose.Schema;
 const Review = require("./review.js");
+const User = require("./user");
 
 const ListSchema = new Schema({
     title : {
@@ -12,9 +13,8 @@ const ListSchema = new Schema({
         required : true
     },
     image : {
-        type : String,
-        default : "https://img.freepik.com/free-vector/gradient-multigenerational-home-illustration_52683-134520.jpg?semt=ais_hybrid&w=740&q=80",        set : (v) => v===""?"https://img.freepik.com/free-vector/gradient-multigenerational-home-illustration_52683-134520.jpg?semt=ais_hybrid&w=740&q=80":v,
-        required : true
+        filename : String,
+        url : String,
     },
     price : {
         type : Number,
@@ -33,7 +33,11 @@ const ListSchema = new Schema({
             type : Schema.Types.ObjectId,
             ref : "Review",
         }
-    ]
+    ],
+    owner : {
+        type : Schema.Types.ObjectId,
+        ref : "User",
+    },
 })
 
 //Deleting all reviews related to list on deleting a list
