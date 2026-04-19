@@ -38,6 +38,17 @@ const ListSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : "User",
     },
+    geometry : {
+        type : {
+            type : String,
+            enum : ['Point'],
+            required : true,
+        },
+        coordinates : {
+            type : [Number],
+            required : true,
+        },
+    },
 })
 
 //Deleting all reviews related to list on deleting a list

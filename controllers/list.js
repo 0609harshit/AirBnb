@@ -1,5 +1,8 @@
 const List = require("../Models/List");
 const ExpressError = require("../utils/ExpressError")
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapToken = process.env.MAP_TOKEN;
+const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.showLists = async (req, res, next) => {
         let lists = await List.find();
@@ -34,11 +37,17 @@ module.exports.deleteList = async(req, res, next) => {
 };
 module.exports.newList = async(req, res, next) => {
     let list = req.body;
+    let response = await geocodingClient.forwardGeocode({
+        query: req.body.list.location,
+        limit: 1
+        })
+        .send();       
     let imageUrl = req.file.path;
     let imageFilename = req.file.filename;
         let newList = new List(req.body.list);
         newList.owner = req.user._id;
         newList.image = {filename :imageFilename, url : imageUrl};
+        newList.geometry = response.body.features[0].geometry;
         await newList.save();
         req.flash("success", "List created successfully!");
         res.redirect("/lists");

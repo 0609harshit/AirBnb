@@ -1,4 +1,8 @@
 <%- layout("./templates/boilerplate") %>
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>"
+  const coordinates = <%- JSON.stringify(list.geometry.coordinates) %>;
+</script>
 <div class="detail-container">
     <div class="card detail-card mx-auto">
   <img src="<%=list.image.url%>" class="card-img-top" alt="<%=list.title%>">
@@ -60,4 +64,7 @@
 </div>
 <%}%>
 </div>
+  <div id="map" class="col-4 card">
+  <script src="/js/map.js"></script>
+  </div>
 </div>
