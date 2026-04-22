@@ -1,3 +1,4 @@
+
 if(process.env.NODE_ENV != "production"){
     require("dotenv").config();
 }
@@ -13,6 +14,7 @@ const lists = require("./routes/lists.js");
 const reviews = require("./routes/reviews.js");
 const users = require("./routes/users.js");
 const session = require("express-session");
+const MongoStore = require('connect-mongo').default;
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
@@ -26,11 +28,24 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(methodOverride("_method"));
 
+
+const store = MongoStore.create({
+    mongoUrl : process.env.MONGO_URL,
+    crypto : {
+        secret : process.env.SECRET,
+    },
+    touchAfter : 24 * 3600,
+});
+store.on("error", (err) => {
+    console.log(err);
+})
 const sessionOptions = {
-    secret : "secretkey",
+    store,
+    secret : process.env.SECRET,
     resave : false,
     saveUninitialized : true,
 }
+
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -43,7 +58,7 @@ passport.deserializeUser(User.deserializeUser());
 
 async function estbConn(){
     try{
-        await mongoose.connect("mongodb://127.0.0.1:27017/airbnb")
+        await mongoose.connect(process.env.MONGO_URL)
     }
     catch(err){
         console.log(err);
