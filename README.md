@@ -2,7 +2,7 @@
 
 A full-stack Airbnb-style web application built with Node.js, Express, MongoDB, Passport.js, Cloudinary, and Mapbox.
 
-Deployed: https://airbnb-jfx0.onrender.com
+Deployed: https://airbnb-jfx0.onrender.com/lists
 
 ## Overview
 
