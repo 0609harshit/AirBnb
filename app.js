@@ -56,11 +56,6 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use((req, res, next) => {
-    res.locals.currUser = req.user;
-    next();
-});
-
 async function estbConn(){
     try{
         await mongoose.connect(process.env.MONGO_URL)
